@@ -15,7 +15,7 @@ resource "aws_eks_node_group" "node_group" {
   node_group_name = "${var.cluster_name}-node-group"
   node_role_arn   = aws_iam_role.eks_node_role.arn
   subnet_ids      = data.aws_subnets.default.ids
-  
+
 
   scaling_config {
     desired_size = var.node_count
@@ -23,10 +23,10 @@ resource "aws_eks_node_group" "node_group" {
     min_size     = 1
   }
 
-  
+
 
   launch_template {
-    id = aws_launch_template.eks_nodes.id
+    id      = aws_launch_template.eks_nodes.id
     version = "$Latest"
     #instance_types = [var.node_instance_type]
   }
@@ -54,12 +54,12 @@ resource "aws_iam_role" "eks_cluster_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
         Principal = {
           Service = "eks.amazonaws.com"
         }
-        Effect    = "Allow"
-        Sid       = ""
+        Effect = "Allow"
+        Sid    = ""
       }
     ]
   })
@@ -78,12 +78,12 @@ resource "aws_iam_role" "eks_node_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action    = "sts:AssumeRole"
+        Action = "sts:AssumeRole"
         Principal = {
           Service = "ec2.amazonaws.com"
         }
-        Effect    = "Allow"
-        Sid       = ""
+        Effect = "Allow"
+        Sid    = ""
       }
     ]
   })
